@@ -62,13 +62,18 @@ namespace TestHtmlAgility {
 
         
         public async Task<string> TesteConteudo(string url) {
-            string resultado = "";
-            HtmlWeb htmlWeb = new HtmlWeb();
-            HtmlDocument doc = await htmlWeb.LoadFromWebAsync(url);
+            try {
+                string resultado = "";
+                HtmlWeb htmlWeb = new HtmlWeb();
+                HtmlDocument doc = await htmlWeb.LoadFromWebAsync("https://www.nfe.fazenda.gov.br/portal/informe.aspx?ehCTG=false");
 
-            resultado = doc.DocumentNode.Descendants("title").FirstOrDefault().InnerText;
+                resultado = doc.DocumentNode.Descendants("title").FirstOrDefault().InnerText;
 
-            return resultado;
+                return resultado;
+            } catch (Exception ex) {
+                throw;
+            }
+            
         }
         
         public async void ExecTestes() {
@@ -77,17 +82,21 @@ namespace TestHtmlAgility {
                 this.TesteAspx = "Erro";
                 this.TesteHttps = "Erro";
                 this.TestePaginaDesejada = "Erro";
-                //Toast.MakeText(Android.Content, "Testando...", ToastLength.Long).Show();
                 this.TesteNormal = await TesteConteudo("http://www25.senado.leg.br/web/transparencia/sen");
                 this.TesteAspx = await TesteConteudo("http://www.nfe.fazenda.gov.br/portal/listaConteudo.aspx?tipoConteudo=tW+YMyk/50s=");
                 this.TesteHttps = await TesteConteudo("https://www.fazenda.sp.gov.br/nfe/");
                 this.TestePaginaDesejada = await TesteConteudo("https://www.nfe.fazenda.gov.br/portal/informe.aspx?ehCTG=false");
             } catch (HtmlWebException ex) {
-                Debug.WriteLine(ex.Message);
-                await Application.Current.MainPage.DisplayAlert("Erro", ex.Message, "Ok");
+                if (ex != null) {
+                    Debug.WriteLine(ex.Message);
+                    await Application.Current.MainPage.DisplayAlert("Erro", ex.Message, "Ok");
+                }
             } catch (Exception ex) {
-                Debug.WriteLine(ex.Message);
-                await Application.Current.MainPage.DisplayAlert("Erro", ex.Message, "Ok");
+                if (ex != null) {
+                    Debug.WriteLine(ex.Message);
+                    await Application.Current.MainPage.DisplayAlert("Erro", ex.Message, "Ok");
+                }
+                
             }
         }
     }
