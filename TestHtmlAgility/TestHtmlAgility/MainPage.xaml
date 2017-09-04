@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:TestHtmlAgility"
+             x:Class="TestHtmlAgility.MainPage">
+    <StackLayout>
+        <Label Text="{Binding TesteNormal, StringFormat='Teste Normal: {0}'}"/>
+        <Label Text="{Binding TesteAspx, StringFormat='Teste Aspx: {0}'}"/>
+        <Label Text="{Binding TesteHttps, StringFormat='Teste Https: {0}'}"/>
+        <Label Text="{Binding TestePaginaDesejada, StringFormat='Teste Desejada: {0}'}"/>
+        <Button Text="Testar"
+            Command="{Binding TestarCommand}"/>
+    </StackLayout>
+	
+
+</ContentPage>
