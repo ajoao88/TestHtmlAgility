@@ -64,8 +64,10 @@ namespace TestHtmlAgility {
         public async Task<string> TesteConteudo(string url) {
             try {
                 string resultado = "";
+                
+
                 HtmlWeb htmlWeb = new HtmlWeb();
-                HtmlDocument doc = await htmlWeb.LoadFromWebAsync("https://www.nfe.fazenda.gov.br/portal/informe.aspx?ehCTG=false");
+                HtmlDocument doc = await htmlWeb.LoadFromWebAsync(url);
 
                 resultado = doc.DocumentNode.Descendants("title").FirstOrDefault().InnerText;
 
